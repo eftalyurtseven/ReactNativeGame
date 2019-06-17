@@ -43,7 +43,7 @@ class Game extends Component {
 
     componentWillMount = async() => {
         if ( await AsyncStorage.getItem('HIGHSCORE') == undefined ) {
-            AsyncStorage.setItem('HIGHSCORE', 0)
+            AsyncStorage.setItem('HIGHSCORE', '0')
         }
 
         this.setState({
@@ -57,8 +57,8 @@ class Game extends Component {
         var RandomY = Math.floor(Math.random() * height - Configs.ballSize) + Configs.ballSize * 2
         
         this.setState({
-            positionX: new Animated.Value(RandomX),
-            positionY: new Animated.Value(RandomY),
+            positionX: new Animated.Value(100),
+            positionY: new Animated.Value(100),
             ballPosX: width / 2,
             ballPosY: height / 2,
             score: 0,
@@ -67,24 +67,24 @@ class Game extends Component {
         });
         this.timer = setInterval(() => {
             this.update()
-        }, 300)
+        }, 100)
     }
 
     update = () => {
         Animated.timing(this.state.positionY, {
-            toValue: this.state.positionY._value - 80,
-            duration: 300
+            toValue: this.state.positionY._value - 30,
+            duration: 100
         }).start()
         if ( this.state.positionY._value < -(height) ) {
             this.gameOver();
         }
         console.log("POSX", this.state.positionX._value)
-        if ( this.state.positionX._value < Configs.ballSize ) {
+        if ( this.state.positionX._value < 0 ) {
             Animated.timing(this.state.positionX, {
                 toValue: Configs.ballSize,
                 duration: 100
             }).start()
-        } else if ( this.state.positionX._value > width - Configs.BallSize ) {
+        } else if ( this.state.positionX._value > width ) {
             Animated.timing(this.state.positionX, {
                 toValue: this.state.positionX._value - Configs.ballSize + 100,
                 duration: 100
@@ -98,7 +98,7 @@ class Game extends Component {
         clearInterval(this.timer);
         if ( await AsyncStorage.getItem('HIGHSCORE') < this.state.score ) {
             // update high score
-            AsyncStorage.setItem("HIGHSCORE", this.state.score);
+            AsyncStorage.setItem("HIGHSCORE", this.state.score.toString());
             this.setState({
                 highScore: this.state.score
             })
@@ -113,15 +113,15 @@ class Game extends Component {
         this.setState({
             score: this.state.score + 1
         })
-        var random = (Math.random() - 0.5) * width / 2
+        var random = (Math.random() - 0.5) * 50
         console.log(random)
         Animated.timing(this.state.positionY, {
             toValue: this.state.positionY._value + 80,
-            duration: 100
+            duration: 50
         }).start()
         Animated.timing(this.state.positionX, {
             toValue: this.state.positionX._value + random,
-            duration: 100
+            duration: 50
         }).start()
     } 
 
