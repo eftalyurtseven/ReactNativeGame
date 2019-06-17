@@ -2,7 +2,7 @@
 Basic ball game using React Native 0.59.9 
 
 ### Demo
-![Demo Gif](/demo.gif?raw=true=250x)
+![Demo Gif](/demo.gif=200x100)
 
 ### Installation
 Clone or Download project and run commands.
