@@ -6,6 +6,9 @@ Basic ball game using React Native 0.59.9
 
 ### Installation
 Clone or Download project and run commands.
-''' 
+```
 react-native link
-react-native run-android or react-native run-ios
+react-native run-ios
+ // if you are using android: react-native run-android
+```
+
