@@ -1,1 +1,8 @@
-language: node_js
+lane :deployment do |version: version|
+  bump_version_number(version: version)
+  canary
+  production
+  sh 'npm run repositories:upload:android'
+  commit_and_push_version_bump
+  slack_notification(platform: 'Android', version: version)
+end
